@@ -553,6 +553,14 @@ private[discipline] trait ArbitraryInstances { this: ArbitraryInstancesBinCompat
       } yield headers.`Access-Control-Expose-Headers`(values)
     }
 
+  implicit val http4sTestingArbitraryForAccessControlRequestHeaders
+      : Arbitrary[headers.`Access-Control-Request-Headers`] =
+    Arbitrary {
+      for {
+        values <- listOf(genToken.map(CIString(_)))
+      } yield headers.`Access-Control-Request-Headers`(values)
+    }
+
   implicit val http4sTestingArbitraryForRetryAfterHeader: Arbitrary[headers.`Retry-After`] =
     Arbitrary {
       for {
